@@ -1,8 +1,12 @@
 package cgg.spring.jdbc;
 
+import java.util.List;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.jdbc.core.JdbcTemplate;
+
+import cgg.spring.jdbc.dao.StudentDao;
+import cgg.spring.jdbc.entities.Student;
 
 /**
  * Hello world!
@@ -16,14 +20,36 @@ public class App
         //spring jdbc -> JdbcTemplate
         
         ApplicationContext context = new ClassPathXmlApplicationContext("config.xml");
-        JdbcTemplate template = context.getBean("jdbcTemplate",JdbcTemplate.class);
+        StudentDao studentDao = context.getBean("studentdao",StudentDao.class);
         
-        //insert query
-        String query = "insert into student values(?,?,?)";
+       //INSERT
+		/*
+		 * Student student = new Student(); student.setId(667); student.setName("pqr");
+		 * student.setCity("mumbai");
+		 */
         
-        //fire query
-        int cnt = template.update(query,246,"xyz","secd");
-        System.out.println("number of records inserted ..."+cnt);
+		/*
+		 * int r = studentDao.insert(student); System.out.println("student added "+r);
+		 */
+        
+        //UPDATE
+		/*
+		 * Student student = new Student(); student.setId(246);
+		 * student.setName("Fathima"); student.setCity("hyd");
+		 * 
+		 * int r = studentDao.change(student); System.out.println("data changed "+r);
+		 */
+        
+        //DELETE
+		/*
+		 * int r = studentDao.delete(666); System.out.println("Deleted "+r);
+		 */
+        List<Student> students = studentDao.getAllStudents();
+        for (Student s : students) {
+        	System.out.println(s);
+		}
+   
+        
         
     }
 }
